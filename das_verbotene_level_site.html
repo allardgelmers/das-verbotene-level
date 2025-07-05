@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Das Verbotene Level</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+      color: #00ffcc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-top: 40px;
+    }
+    .level-button {
+      background-color: #003f3f;
+      border: none;
+      color: #00ffcc;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .level-button:hover {
+      background-color: #005f5f;
+    }
+    .game-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .riddle-box {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      text-align: center;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 200px;
+      border: 1px solid #00ffcc;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Das Verbotene Level</h1>
+  <p>Klicke auf ein Level, um das Rätsel zu starten:</p>
+  <button class="level-button" onclick="showLevel(1)">Level 1: Zahlen-Code</button>
+  <button class="level-button" onclick="showLevel(2)">Level 2: Labyrinth</button>
+  <button class="level-button" onclick="showLevel(3)">Level 3: Code-Puzzle</button>
+
+  <div class="game-section" id="level1">
+    <div class="riddle-box">
+      <h2>Level 1: Zahlen-Code</h2>
+      <p>Finde den vierstelligen Code: Die Quersumme ist 9, die letzte Ziffer ist 3.</p>
+      <input type="text" id="input1" placeholder="Gib den Code ein...">
+      <div class="message" id="msg1"></div>
+    </div>
+  </div>
+
+  <div class="game-section" id="level2">
+    <div class="riddle-box">
+      <h2>Level 2: Labyrinth</h2>
+      <p>Wähle den richtigen Weg:</p>
+      <button onclick="labCheck('links')">Links</button>
+      <button onclick="labCheck('geradeaus')">Geradeaus</button>
+      <button onclick="labCheck('rechts')">Rechts</button>
+      <div class="message" id="msg2"></div>
+    </div>
+  </div>
+
+  <div class="game-section" id="level3">
+    <div class="riddle-box">
+      <h2>Level 3: Code-Puzzle</h2>
+      <p>Setze den korrekten Funktionsnamen ein:</p>
+      <p><code>function _____() { return 'Level X bestanden'; }</code></p>
+      <input type="text" id="input3" placeholder="Funktionsname">
+      <div class="message" id="msg3"></div>
+    </div>
+  </div>
+
+  <script>
+    function showLevel(n) {
+      document.querySelectorAll('.game-section').forEach(e => e.style.display = 'none');
+      document.getElementById('level' + n).style.display = 'flex';
+    }
+
+    document.getElementById('input1').addEventListener('input', function () {
+      const val = this.value;
+      if (val === '1023') {
+        document.getElementById('msg1').innerText = 'Richtig! Du hast Level 1 bestanden!';
+      } else {
+        document.getElementById('msg1').innerText = '';
+      }
+    });
+
+    function labCheck(direction) {
+      if (direction === 'geradeaus') {
+        document.getElementById('msg2').innerText = 'Du hast den richtigen Weg gefunden!';
+      } else {
+        document.getElementById('msg2').innerText = 'Falscher Weg! Versuch es nochmal!';
+      }
+    }
+
+    document.getElementById('input3').addEventListener('input', function () {
+      const val = this.value.toLowerCase();
+      if (val === 'exitx') {
+        document.getElementById('msg3').innerText = 'Du hast das verbotene Level verlassen!';
+      } else {
+        document.getElementById('msg3').innerText = '';
+      }
+    });
+  </script>
+</body>
+</html>
